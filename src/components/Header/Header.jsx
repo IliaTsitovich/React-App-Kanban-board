@@ -41,7 +41,7 @@ function Header () {
         <div className="header">
             <div className="container__header">
                 <div className="main-title">
-                    <NavLink className={'main-title_Link'} to={'/'}>
+                    <NavLink className={'main-title_Link'} to={'/React-App-Kanban-board/'}>
                     <p>Awesome Kanban Board</p>
                     </NavLink>
                 </div>
