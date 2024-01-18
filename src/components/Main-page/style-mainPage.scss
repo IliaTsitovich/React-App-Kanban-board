@@ -1,0 +1,100 @@
+.blocks {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, 300px);
+    .delete {
+        position: absolute;
+        z-index: 100;
+        top: -30px;
+    }
+}
+
+@media screen and (max-width: 1200px){
+    header .header {
+        background: #0079BF ;
+        .main-title{
+            display: none;
+        }
+    }
+
+
+    main {
+        margin: auto auto;
+    .blocks{
+        margin: 5vw auto;
+        justify-content: center;
+        align-items: start;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 0.5fr));
+        .block_components{
+            margin: 0 auto 50px auto;
+            .title-block{
+                font-size: 18px;
+            }
+        }
+        .block_describeTask{
+            margin: auto;
+            width: 95%;
+            height: 95vw;             
+           .area-text{
+            width: 80%;
+            height: 60%;
+            }
+        .svg-icon_close{
+            top: 3vw;
+            left: 90%;
+            }   
+        } 
+        }
+    }
+
+   .footer-block {
+        display: none;
+     }
+        
+}
+
+@media screen and (max-width: 376px) {
+    main {
+        .blocks{
+            .block_components {
+                margin: 0;
+                margin-bottom: 50px;
+            }
+            .block_describeTask{
+                margin: auto auto;
+                width: 95%;
+                height: 95vw;     
+               .area-text{
+                width: 80%;
+                height: 60%;
+                }
+            .svg-icon_close{
+                top: 3vw;
+                left: 80vw;
+            }   
+          }  
+        }
+    }
+}
+@media screen and (max-width: 800px) and (min-width: 600px){
+    main {
+        margin: auto auto;
+    .blocks{
+        justify-content: center;
+        .block_describeTask{
+            margin: auto;
+            width: 95%;
+            height: 95vw;             
+           .area-text{
+            width: 80%;
+            height: 60%;
+            }
+        .svg-icon_close{
+            top: 2vw;
+            left: 95%;
+            } 
+        }
+     }
+    }  
+}

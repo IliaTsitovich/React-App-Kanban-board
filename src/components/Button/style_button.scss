@@ -1,0 +1,67 @@
+$colorBgTypeTasks: #EBECF0;
+$fonts: "Roboto";
+$colorFontsForButton: #5E6C84;
+$bgSubmitBtn: #0079BF;
+$imageAddCard: url(../svg/image-add-card.svg);
+
+
+
+
+.submit_button {
+    background-color: $colorFontsForButton;
+    color: white;
+    font-family: $fonts;
+    font-size: 18px;
+    border: none;
+    width: 100px;
+    height: 29px;
+    text-align: center;
+    border-radius: 5px;
+    margin-top: 19px;
+    margin-left: 12px;
+    margin-bottom: 9px;
+    &.validated {
+        background-color:$bgSubmitBtn;
+        cursor: pointer;
+    }
+}
+
+
+.button_add {
+    width: 109px;
+    height: max-content;
+    position: relative;
+    color: $colorFontsForButton;
+    display: flex;
+    margin-top: 19px;
+    margin-left: 11px;
+    margin-bottom: 9px;
+    border: none;
+    font-family: $fonts;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 21px;
+    letter-spacing: 0em;
+    align-items: center;
+    background: $imageAddCard;
+    background-repeat: no-repeat;
+    justify-content:space-around;
+    background-position-x: left;
+    background-position-y: 1px;
+
+    .add-name {
+        margin-left: 3px;
+    }
+
+    &.active:hover {
+            cursor: pointer;
+            color: #0079BF;
+            
+    }
+   
+    &.backlog:hover {
+        cursor: pointer;
+        color: #0079BF;
+    }
+   
+}

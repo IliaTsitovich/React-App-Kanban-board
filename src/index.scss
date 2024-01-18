@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+$fonts: "Roboto";
+
+//Colors
+$colorHeader: #0067A3; //color for header
+$mainBg: #0079BF;
+
+body {
+    background: $mainBg;
+    font-family: $fonts, sans-serif;
+    .blocks {
+        margin: 25px auto auto 18px;
+
+    }
+
+    .link-mainPage {
+    text-decoration: none;
+    .title-block{
+        color: black;
+    }
+    
+    }
+}

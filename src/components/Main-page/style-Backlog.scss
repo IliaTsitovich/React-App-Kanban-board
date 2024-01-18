@@ -1,0 +1,147 @@
+$colorBgTypeTasks: #EBECF0;
+
+$fonts: "Roboto";
+$colorFontsForButton: #5E6C84;
+$bgSubmitBtn: #0079BF;
+
+.block_components{
+    position: relative;
+    max-width: 282px;
+    width: 282px;
+    height: max-content;
+    background: $colorBgTypeTasks;
+    border-radius: 10px;
+    margin-right: 24px;
+
+    
+    [data-tooltip]::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        z-index: 100;
+        font-size: 12px;
+        width: 120px;
+        color: #fff;
+        background-color: #0079BF; 
+        padding: 0.5em;
+        top: 0; 
+        border-radius: 8px;
+        left: 0;
+        pointer-events: none; /* Подсказка */
+        opacity: 0; /* Подсказка невидима */
+        transition: 2s; /* Выводим текст */
+      }
+    [data-tooltip]:hover::after {
+        z-index: 99999;
+        opacity: 1; /* Показываем подсказку */
+        top: -30px; 
+        left: -135px;/* Положение подсказки */
+       }  
+    .delete-button{
+        background-image: url('../svg/delete.png');
+        background-size: cover;
+        position: absolute;
+        top: 10px;
+        left: 240px;
+        border: none;
+        width: 20px;
+        height: 20px;
+        &:hover {
+            cursor: pointer;
+        }
+        
+    }
+    p {
+        margin: 12px;
+        font-size: 17px;
+        font-family: "Roboto";
+    }
+
+    .container_newTask{
+        margin-top: 12px;
+        margin-left: 10px;
+        width: 258px;
+        background-color: #fff;
+        min-height: 35px;
+        height: max-content;
+        border-radius: 5px;
+        justify-content: center;
+        align-items: center;
+
+        .input-task{
+           
+            width: 234px;
+            align-items: center;
+            height: 34px;
+            font-size: 18px;
+            padding: 0 8px;
+            border: none;
+            &:focus {
+                outline: none;
+            }
+        }
+    }
+
+    .image-add-button {
+            margin-right: 3px;
+        }
+        .submit-button {
+            background: $bgSubmitBtn;
+            color: white;
+            font-family: $fonts;
+            font-size: 18px;
+            border: none;
+            width: 100px;
+            height: 29px;
+            text-align: center;
+            border-radius: 5px;
+            margin-top: 19px;
+            margin-left: 11px;
+            margin-bottom: 9px;
+        }
+        .button_backlog {
+            position: relative;
+            color: $colorFontsForButton;
+            display: flex;
+            margin-top: 19px;
+            margin-left: 11px;
+            padding-bottom: 9px;
+            border: none;
+            font-family: Roboto;
+            font-size: 18px;
+            font-weight: 400;
+            line-height: 21px;
+            letter-spacing: 0em;
+            text-align: left;
+        }
+}
+
+.item-todo {
+    width: 100px;
+    height: 35px;
+}
+
+.item-task {
+    max-width: 258px;
+    width: 258px;
+    align-items: center;
+    font-size: 18px;
+    border: none;
+    background-color:  #FFFFFF;
+    border-radius: 5px;
+    margin: 15px auto;
+    margin-top: 0;
+    word-wrap: break-word;
+    cursor: pointer;
+    &:active, :hover {
+        scale: 1.02;
+    }
+    
+    h4 {
+        font-size: 18px;
+        font-family: $fonts;
+        width: 241px;
+        padding: 7px 8px 7px 9px ;
+        font-weight: 400;
+    }
+}
+
