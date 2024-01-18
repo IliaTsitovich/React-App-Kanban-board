@@ -15,7 +15,12 @@ function App() {
   return (
     <Context.Provider value={{lenghtTasks,setLenghtTasks}}>
     <Header/>
-      <MainPage/>
+      <Routes>
+        <Route path="/">
+          <MainPage/>
+        </Route>
+
+      </Routes>
     <Footer/>
     </Context.Provider>
   );
