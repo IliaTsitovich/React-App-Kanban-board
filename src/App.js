@@ -16,7 +16,7 @@ function App() {
     <Context.Provider value={{lenghtTasks,setLenghtTasks}}>
     <Header/>
       <Routes>
-        <Route path="/">
+        <Route path="/React-App-Kanban-board/">
           <MainPage/>
         </Route>
 
