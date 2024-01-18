@@ -12,7 +12,8 @@ Kanban board
 - [Status](#status)
 
 ## About The App
-[Name of project] is an app that ...
+A kanban board is one of the tools that can be used to implement kanban to manage work at a personal or organizational level.
+
 
 ## Screenshots
 
