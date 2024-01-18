@@ -357,7 +357,7 @@ const MainPage = ({...props}) => {
                 onChange = {(e)=>handleChangeInfo(e)}/>
             }
             />
-        <Route path={`/`} element={
+        <Route path={`/React-App-Kanban-board/`} element={
             <>
             <BlockForTasks
                  classNameButtonSubmit = {validated ? "submit_button validated" : "submit_button"}
