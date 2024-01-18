@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/React-App-Kanban-board/static/css/main.8390b625.css",
+    "main.js": "/React-App-Kanban-board/static/js/main.e04b68c1.js",
+    "index.html": "/React-App-Kanban-board/index.html",
+    "static/media/image-add-card.svg": "/React-App-Kanban-board/static/media/image-add-card.c6cdbf7a59b54744b652.svg",
+    "static/media/select_arrow_down.svg": "/React-App-Kanban-board/static/media/select_arrow_down.b72cf6b2cb27705cb42e.svg",
+    "main.8390b625.css.map": "/React-App-Kanban-board/static/css/main.8390b625.css.map",
+    "main.e04b68c1.js.map": "/React-App-Kanban-board/static/js/main.e04b68c1.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.8390b625.css",
+    "static/js/main.e04b68c1.js"
+  ]
+}
