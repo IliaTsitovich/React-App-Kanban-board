@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/React-App-Kanban-board/static/css/main.90b7797e.css",
-    "main.js": "/React-App-Kanban-board/static/js/main.63fae89c.js",
+    "main.css": "/React-App-Kanban-board/static/css/main.38ec4f65.css",
+    "main.js": "/React-App-Kanban-board/static/js/main.283ac977.js",
     "index.html": "/React-App-Kanban-board/index.html",
     "static/media/image-add-card.svg": "/React-App-Kanban-board/static/media/image-add-card.c6cdbf7a59b54744b652.svg",
     "static/media/select_arrow_down.svg": "/React-App-Kanban-board/static/media/select_arrow_down.b72cf6b2cb27705cb42e.svg",
-    "main.90b7797e.css.map": "/React-App-Kanban-board/static/css/main.90b7797e.css.map",
-    "main.63fae89c.js.map": "/React-App-Kanban-board/static/js/main.63fae89c.js.map"
+    "main.38ec4f65.css.map": "/React-App-Kanban-board/static/css/main.38ec4f65.css.map",
+    "main.283ac977.js.map": "/React-App-Kanban-board/static/js/main.283ac977.js.map"
   },
   "entrypoints": [
-    "static/css/main.90b7797e.css",
-    "static/js/main.63fae89c.js"
+    "static/css/main.38ec4f65.css",
+    "static/js/main.283ac977.js"
   ]
 }
