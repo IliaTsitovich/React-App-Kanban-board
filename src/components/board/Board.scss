@@ -1,0 +1,36 @@
+.board {
+  flex: 1;
+  padding: 24px 18px 48px;
+}
+
+.board-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 20px;
+  max-width: 360px;
+}
+
+.board-search {
+  background: var(--color-surface);
+}
+
+.board-search-hint {
+  font-size: 12px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.board-columns {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(260px, 300px));
+  gap: 20px;
+  align-items: start;
+  overflow-x: auto;
+}
+
+@media screen and (max-width: 1200px) {
+  .board-columns {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  }
+}

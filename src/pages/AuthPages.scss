@@ -1,0 +1,37 @@
+.auth-page {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 16px;
+}
+
+.auth-card {
+  background: var(--color-surface);
+  border-radius: 10px;
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  width: 100%;
+  max-width: 380px;
+
+  h1 {
+    font-size: 22px;
+    margin: 0 0 20px;
+  }
+}
+
+.auth-form .submit_button {
+  width: 100%;
+  margin-left: 0;
+}
+
+.auth-switch {
+  margin: 16px 0 0;
+  font-size: 14px;
+  color: var(--color-text-muted);
+
+  a {
+    color: var(--color-primary);
+    font-weight: 500;
+  }
+}

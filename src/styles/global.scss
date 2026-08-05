@@ -1,0 +1,168 @@
+@use './theme.scss';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: 'Roboto', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+a {
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+// Shared buttons
+
+.submit_button,
+.button_add,
+.button_secondary,
+.button_danger {
+  border: none;
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-size: 14px;
+  font-weight: 500;
+  color: white;
+  background: var(--color-surface-muted);
+  color: var(--color-text-muted);
+}
+
+.submit_button.validated,
+.button_add.active {
+  background: var(--color-primary);
+  color: white;
+}
+.submit_button.validated:hover,
+.button_add.active:hover {
+  background: var(--color-primary-hover);
+}
+
+.button_secondary {
+  background: transparent;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.button_danger {
+  background: var(--color-danger);
+  color: white;
+}
+.button_danger:hover {
+  background: var(--color-danger-hover);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+// Shared form fields
+
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+
+.field-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+}
+
+.field-input,
+.area-text,
+.input-task,
+.board-search {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 8px 10px;
+  font-size: 14px;
+  background: var(--color-surface);
+  color: var(--color-text);
+  font-family: inherit;
+  width: 100%;
+}
+
+.field-input:focus,
+.area-text:focus,
+.input-task:focus,
+.board-search:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+}
+
+.field-error {
+  color: var(--color-danger);
+  font-size: 12px;
+  margin: 0;
+}
+
+// Shared dialog/modal
+
+.app-modal {
+  border: none;
+  border-radius: 10px;
+  padding: 0;
+  max-width: 560px;
+  width: calc(100vw - 32px);
+  background: var(--color-surface);
+  color: var(--color-text);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35);
+}
+
+.app-modal::backdrop {
+  background: rgba(9, 30, 66, 0.55);
+}
+
+.app-modal-content {
+  padding: 20px 24px 24px;
+}
+
+.app-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.app-modal-title {
+  margin: 0;
+  font-size: 18px;
+}
+
+.app-modal-close {
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  line-height: 1;
+  color: var(--color-text-muted);
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 16px;
+}

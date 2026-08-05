@@ -1,0 +1,65 @@
+.item-task {
+  background-color: var(--color-surface);
+  border-radius: 8px;
+  box-shadow: var(--shadow-card);
+  padding: 4px;
+  touch-action: none;
+}
+
+.item-task-overlay {
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+  cursor: grabbing;
+}
+
+.item-task-title {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: none;
+  border: none;
+  padding: 7px 8px;
+  font-size: 15px;
+  font-family: inherit;
+  color: var(--color-text);
+  word-wrap: break-word;
+  cursor: grab;
+
+  &:hover {
+    color: var(--color-primary);
+  }
+}
+
+.item-task-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 8px 6px;
+}
+
+.priority-badge {
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+  padding: 1px 6px;
+  text-transform: uppercase;
+}
+
+.priority-badge.priority-low {
+  background: #e3f2e1;
+  color: #2e7d32;
+}
+
+.priority-badge.priority-medium {
+  background: #fff3cd;
+  color: #8a6500;
+}
+
+.priority-badge.priority-high {
+  background: #fbe1de;
+  color: #c0392b;
+}
+
+.due-date {
+  font-size: 11px;
+  color: var(--color-text-muted);
+}

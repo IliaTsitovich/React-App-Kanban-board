@@ -1,0 +1,19 @@
+.task-modal-form {
+  display: flex;
+  flex-direction: column;
+}
+
+.task-modal-row {
+  display: flex;
+  gap: 16px;
+
+  > div {
+    flex: 1;
+  }
+}
+
+.task-modal-actions {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+}
