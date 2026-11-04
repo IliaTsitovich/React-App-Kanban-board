@@ -1,25 +1,12 @@
 import { z } from 'zod';
 
-export const registerSchema = z
-  .object({
-    username: z
-      .string()
-      .trim()
-      .min(3, 'Username must be at least 3 characters')
-      .max(24, 'Username must be at most 24 characters')
-      .regex(/^[a-zA-Z0-9_]+$/, 'Only letters, numbers and underscores allowed'),
-    email: z.string().trim().email('Enter a valid email address'),
-    password: z.string().min(6, 'Password must be at least 6 characters'),
-    confirmPassword: z.string(),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: 'Passwords do not match',
-    path: ['confirmPassword'],
-  });
-
-export const loginSchema = z.object({
-  username: z.string().trim().min(1, 'Username is required'),
-  password: z.string().min(1, 'Password is required'),
+export const profileSchema = z.object({
+  username: z
+    .string()
+    .trim()
+    .min(3, 'Name must be at least 3 characters')
+    .max(24, 'Name must be at most 24 characters')
+    .regex(/^[a-zA-Z0-9_]+$/, 'Only letters, numbers and underscores allowed'),
 });
 
 export const taskSchema = z.object({
@@ -28,3 +15,30 @@ export const taskSchema = z.object({
   priority: z.enum(['low', 'medium', 'high']).default('medium'),
   dueDate: z.string().optional().nullable(),
 });
+
+// Shapes of what's persisted in localStorage, checked on every read.
+export const profilesSchema = z.array(
+  z.object({
+    id: z.string(),
+    username: z.string(),
+    createdAt: z.string().optional(),
+  })
+);
+
+export const sessionSchema = z.object({ userId: z.string() }).nullable();
+
+export const themeSchema = z.enum(['light', 'dark']);
+
+export const boardSchema = z.array(
+  z.object({
+    id: z.string(),
+    title: z.string(),
+    description: z.string().catch(''),
+    status: z.enum(['backlog', 'ready', 'in-progress', 'finished']).catch('backlog'),
+    order: z.number(),
+    priority: z.enum(['low', 'medium', 'high']).catch('medium'),
+    dueDate: z.string().nullable().catch(null),
+    createdAt: z.string().optional(),
+    updatedAt: z.string().optional(),
+  })
+);

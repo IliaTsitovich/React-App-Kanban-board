@@ -1,7 +1,7 @@
 # Awesome Kanban Board
 
-A drag-and-drop Kanban board with local user accounts and an admin panel — a fully client-side
-demo app (no backend, no database) built with React 19 + Vite.
+A drag-and-drop Kanban board with local profiles — a fully client-side demo app (no backend, no
+database) built with React 19 + Vite.
 
 ## Table of Content
 
@@ -10,15 +10,15 @@ demo app (no backend, no database) built with React 19 + Vite.
 - [Technologies](#technologies)
 - [Setup](#setup)
 - [Available Scripts](#available-scripts)
-- [A note on authentication security](#a-note-on-authentication-security)
+- [Demo limitations](#demo-limitations)
 - [Deployment](#deployment)
 - [Screenshots](#screenshots)
 
 ## About The App
 
 A Kanban board is a tool for visualizing work as cards moving through columns
-(Backlog → Ready → In Progress → Finished). This version adds local accounts, so each person who
-registers in the same browser gets their own private board.
+(Backlog → Ready → In Progress → Finished). Each profile created in a browser gets its own board,
+which is handy for keeping separate lists. Profiles are not accounts and boards are not private.
 
 ## Features
 
@@ -26,9 +26,7 @@ registers in the same browser gets their own private board.
   with full keyboard support (Tab to a card, Space/arrow keys to move it).
 - Add, edit, and delete tasks, with priority, due date, and description.
 - Search/filter tasks by title.
-- Local account registration and login — each user has their own board, isolated from others.
-- The first account ever registered becomes an admin automatically.
-- Admin panel to view all registered accounts, promote/demote, and delete users.
+- Local profiles, each with its own board. Create, switch, and delete them from the profile screen.
 - Light/dark theme toggle (defaults to your OS preference).
 - Toast notifications for key actions.
 - Everything persists to `localStorage`; two tabs of the app stay in sync with each other.
@@ -61,26 +59,28 @@ npm run dev
 - `npm run lint` — run ESLint.
 - `npm run deploy` — build and publish `dist/` to GitHub Pages.
 
-## A note on authentication security
+## Demo limitations
 
-Registration/login in this app is **entirely local**: there is no server, and "accounts" are
-just entries in this browser's `localStorage`. Passwords are salted and hashed (SHA-256) before
-being stored, so they aren't kept in plaintext — but because the code, the salt, and the hash all
-live in the same browser the user controls, this offers **no real protection**. Anyone with
-DevTools access to their own browser could inspect or edit their stored user record (e.g. change
-their own role to `admin`). This is fine for a personal/demo Kanban board; do not reuse this
-pattern for anything that needs genuine security.
+This app has no server, so there are no real accounts and no security boundary:
+
+- Profiles have no passwords. Anyone using the same browser can open any profile and its tasks.
+- Data lives only in this browser's `localStorage`. It doesn't sync between devices, there is no
+  backup, and clearing site data deletes it.
+- Don't store anything sensitive here.
+
+Older versions stored emails and password hashes. The app removes them from `localStorage` the next
+time it loads; existing boards are kept.
 
 ## Deployment
 
 Deployed to GitHub Pages via `gh-pages`. Because GitHub Pages is static hosting with no
-server-side rewrites, a hard refresh on a route like `/login` or `/admin` is handled by
+server-side rewrites, a hard refresh on a route like `/profiles` is handled by
 `public/404.html`, which redirects back into the app while preserving the path.
 
 ## Screenshots
 
 _From an earlier version of the app — the board and columns still work the same way, styling and
-features (auth, drag-and-drop, admin panel) have since been added._
+features (profiles, drag-and-drop) have since been added._
 
 <div>
   <img src="https://github.com/IliaTsitovich/screen-projects/blob/main/kanban/main.png"  title="main-page" alt="main page kanban" width='800' height="600"/>&nbsp;

@@ -1,39 +1,29 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { readStored, writeStored } from '../lib/storage';
 
-function readValue(key, initialValue) {
-  try {
-    const raw = window.localStorage.getItem(key);
-    return raw !== null ? JSON.parse(raw) : initialValue;
-  } catch {
-    return initialValue;
-  }
-}
+// initialValue and schema must be stable between renders.
+export function useLocalStorage(key, initialValue, schema) {
+  const [value, setValue] = useState(() => readStored(key, schema, initialValue));
+  const persisted = useRef(value);
 
-export function useLocalStorage(key, initialValue) {
-  const [value, setValue] = useState(() => readValue(key, initialValue));
-
+  // Only real changes are written, so loading the app never overwrites storage.
   useEffect(() => {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch {
-      // storage full or unavailable (private browsing) - fail silently, in-memory state still works
-    }
+    if (value === persisted.current) return;
+    persisted.current = value;
+    writeStored(key, value);
   }, [key, value]);
 
   // Keep multiple tabs of the app in sync with each other.
   useEffect(() => {
     function handleStorage(event) {
-      if (event.key === key) {
-        setValue(readValue(key, initialValue));
-      }
+      if (event.key !== key && event.key !== null) return;
+      const next = readStored(key, schema, initialValue);
+      persisted.current = next;
+      setValue(next);
     }
     window.addEventListener('storage', handleStorage);
     return () => window.removeEventListener('storage', handleStorage);
-  }, [key, initialValue]);
+  }, [key, initialValue, schema]);
 
-  const reload = useCallback(() => {
-    setValue(readValue(key, initialValue));
-  }, [key, initialValue]);
-
-  return [value, setValue, reload];
+  return [value, setValue];
 }

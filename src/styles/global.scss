@@ -119,6 +119,23 @@ button:disabled {
   margin: 0;
 }
 
+// Crash screen
+
+.error-screen {
+  flex: 1;
+  padding: 64px 16px;
+  text-align: center;
+  color: white;
+
+  h1 {
+    margin: 0 0 8px;
+  }
+
+  p {
+    margin: 0 0 20px;
+  }
+}
+
 // Shared dialog/modal
 
 .app-modal {
@@ -158,6 +175,10 @@ button:disabled {
   font-size: 22px;
   line-height: 1;
   color: var(--color-text-muted);
+}
+
+.confirm-message {
+  color: var(--color-text);
 }
 
 .confirm-actions {

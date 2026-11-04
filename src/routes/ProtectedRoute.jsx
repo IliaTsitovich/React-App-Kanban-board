@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useProfile } from '../context/ProfileContext';
 
 export function ProtectedRoute({ children }) {
-  const { user } = useAuth();
-  if (!user) return <Navigate to="/login" replace />;
+  const { profile } = useProfile();
+  if (!profile) return <Navigate to="/profiles" replace />;
   return children;
 }
