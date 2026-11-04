@@ -1,4 +1,4 @@
-import { useDroppable } from '@dnd-kit/core';
+import { useDndContext, useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { TaskCard } from './TaskCard';
 import { AddTaskForm } from './AddTaskForm';
@@ -9,9 +9,11 @@ export function Column({ column, tasks, onOpenTask, dragDisabled }) {
     id: column.id,
     data: { type: 'column', status: column.id },
   });
+  const { over } = useDndContext();
+  const isDropTarget = over?.data.current?.status === column.id;
 
   return (
-    <div className="column">
+    <div className={`column${isDropTarget ? ' column_drop-target' : ''}`}>
       <div className="column-header">
         <p className="title-block">{column.title}</p>
         <span className="column-count">{tasks.length}</span>
@@ -27,7 +29,9 @@ export function Column({ column, tasks, onOpenTask, dragDisabled }) {
               disabled={dragDisabled}
             />
           ))}
-          {tasks.length === 0 && <p className="column-empty">No tasks</p>}
+          {tasks.length === 0 && (
+            <p className="column-empty">{dragDisabled ? 'No matches' : 'Drop cards here'}</p>
+          )}
         </div>
       </SortableContext>
 

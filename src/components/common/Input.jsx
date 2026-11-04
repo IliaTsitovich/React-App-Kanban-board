@@ -1,7 +1,7 @@
 import { forwardRef } from 'react';
 
 export const Input = forwardRef(function Input(
-  { label, id, error, className = '', ...rest },
+  { label, id, hint, error, className = '', ...rest },
   ref
 ) {
   return (
@@ -11,7 +11,18 @@ export const Input = forwardRef(function Input(
           {label}
         </label>
       )}
-      <input id={id} ref={ref} className={`field-input ${className}`} {...rest} />
+      <input
+        id={id}
+        ref={ref}
+        className={`field-input ${className}`}
+        aria-describedby={hint && !error ? `${id}-hint` : undefined}
+        {...rest}
+      />
+      {hint && !error && (
+        <p id={`${id}-hint`} className="field-hint">
+          {hint}
+        </p>
+      )}
       {error && (
         <p className="field-error" role="alert">
           {error}

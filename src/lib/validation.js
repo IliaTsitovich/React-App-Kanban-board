@@ -40,5 +40,6 @@ export const boardSchema = z.array(
     dueDate: z.string().nullable().catch(null),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),
+    sample: z.boolean().optional(),
   })
 );

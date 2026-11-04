@@ -26,7 +26,12 @@ export function ProfilesPage() {
   return (
     <main className="profiles-page">
       <div className="profiles-card">
-        <h1>Choose a profile</h1>
+        <h1>{profiles.length > 0 ? 'Choose a profile' : 'Create a profile to start'}</h1>
+        {profiles.length === 0 && (
+          <p className="profiles-intro">
+            A drag-and-drop Kanban board. New boards start with a few examples to try.
+          </p>
+        )}
         {profiles.length > 0 && (
           <ul className="profiles-list">
             {profiles.map((p) => (

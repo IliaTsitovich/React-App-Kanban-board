@@ -30,6 +30,7 @@ export function CreateProfileForm() {
       <Input
         id="username"
         label="Profile name"
+        hint="3-24 letters, numbers or underscores"
         autoComplete="off"
         autoFocus
         error={errors.username?.message}

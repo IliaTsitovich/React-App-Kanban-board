@@ -18,7 +18,7 @@ function reducer(state, action) {
     case 'UPDATE_TASK':
       return state.map((task) =>
         task.id === action.payload.id
-          ? { ...task, ...action.payload.patch, updatedAt: new Date().toISOString() }
+          ? { ...task, ...action.payload.patch, sample: false, updatedAt: new Date().toISOString() }
           : task
       );
 
@@ -32,6 +32,9 @@ function reducer(state, action) {
         .map((t) => t.id);
       return renumberColumn(remaining, removed.status, orderedIds);
     }
+
+    case 'CLEAR_SAMPLES':
+      return state.filter((task) => !task.sample);
 
     case 'MOVE_TASK': {
       const { id, toStatus, toIndex } = action.payload;
@@ -131,11 +134,15 @@ function BoardStore({ profileId, children }) {
     dispatch({ type: 'MOVE_TASK', payload: { id, toStatus, toIndex } });
   }, []);
 
+  const clearSamples = useCallback(() => {
+    dispatch({ type: 'CLEAR_SAMPLES' });
+  }, []);
+
   const columns = useMemo(() => tasksByColumn(tasks), [tasks]);
 
   const value = useMemo(
-    () => ({ tasks, columns, addTask, updateTask, deleteTask, moveTask }),
-    [tasks, columns, addTask, updateTask, deleteTask, moveTask]
+    () => ({ tasks, columns, addTask, updateTask, deleteTask, moveTask, clearSamples }),
+    [tasks, columns, addTask, updateTask, deleteTask, moveTask, clearSamples]
   );
 
   return <BoardContext.Provider value={value}>{children}</BoardContext.Provider>;

@@ -16,8 +16,20 @@
 
   h1 {
     font-size: 22px;
-    margin: 0 0 20px;
+    margin: 0 0 8px;
   }
+}
+
+.profiles-intro {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.profiles-intro + .profile-form,
+.profiles-card h1 + .profiles-list {
+  margin-top: 20px;
 }
 
 .profiles-list {

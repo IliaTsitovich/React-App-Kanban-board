@@ -1,24 +1,38 @@
 .board {
   flex: 1;
   padding: 24px 18px 48px;
+
+  &:focus {
+    outline: none;
+  }
 }
 
 .board-toolbar {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 20px;
-  max-width: 360px;
 }
 
 .board-search {
   background: var(--color-surface);
+  max-width: 360px;
 }
 
 .board-search-hint {
   font-size: 12px;
-  color: var(--color-text-muted);
+  color: white;
   white-space: nowrap;
+}
+
+.board-clear-samples {
+  background: var(--color-surface);
+  white-space: nowrap;
+
+  &:hover {
+    background: var(--color-surface-muted);
+  }
 }
 
 .board-columns {
