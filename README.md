@@ -57,7 +57,6 @@ npm run dev
 - `npm run build` — production build to `dist/`.
 - `npm run preview` — preview the production build locally.
 - `npm run lint` — run ESLint.
-- `npm run deploy` — build and publish `dist/` to GitHub Pages.
 
 ## Demo limitations
 
@@ -73,9 +72,13 @@ time it loads; existing boards are kept.
 
 ## Deployment
 
-Deployed to GitHub Pages via `gh-pages`. Because GitHub Pages is static hosting with no
-server-side rewrites, a hard refresh on a route like `/profiles` is handled by
-`public/404.html`, which redirects back into the app while preserving the path.
+GitHub Actions deploys to GitHub Pages on every push to `main`, after lint, audit and build pass
+(`.github/workflows/ci.yml`). In the repository's Pages settings, the source must be **GitHub
+Actions**.
+
+Because GitHub Pages is static hosting with no server-side rewrites, a hard refresh on a route like
+`/profiles` is handled by `public/404.html`, which redirects back into the app while preserving the
+path.
 
 ## Screenshots
 
