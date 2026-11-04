@@ -1,6 +1,8 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef } from 'react';
-import { useAuth } from './AuthContext';
+import { useProfile } from './ProfileContext';
 import { STORAGE_KEYS } from '../lib/storageKeys';
+import { readStored, writeStored } from '../lib/storage';
+import { boardSchema } from '../lib/validation';
 import { createTask, nextOrderInColumn, renumberColumn, tasksByColumn } from '../lib/tasks';
 
 const BoardContext = createContext(null);
@@ -63,42 +65,45 @@ function reducer(state, action) {
   }
 }
 
-function readBoard(userId) {
-  try {
-    const raw = window.localStorage.getItem(STORAGE_KEYS.board(userId));
-    return raw ? JSON.parse(raw) : [];
-  } catch {
-    return [];
-  }
+function readBoard(profileId) {
+  return readStored(STORAGE_KEYS.board(profileId), boardSchema, []);
 }
 
+// Keyed by profile, so switching profiles always starts from a clean store and
+// one profile's tasks can never be written under another profile's key.
 export function BoardProvider({ children }) {
-  const { user } = useAuth();
-  // Lazily compute the initial board for whichever user is already logged in
-  // at mount time, so there's never an empty-then-filled gap that the persist
-  // effect below could race with and overwrite.
-  const [tasks, dispatch] = useReducer(reducer, user, (u) => (u ? readBoard(u.id) : []));
-  const loadedUserId = useRef(user?.id ?? null);
+  const { profile } = useProfile();
+  const profileId = profile?.id ?? null;
+  return (
+    <BoardStore key={profileId} profileId={profileId}>
+      {children}
+    </BoardStore>
+  );
+}
 
-  // Whenever the logged-in user actually changes (login/logout/switch account),
-  // fully replace in-memory tasks with that user's stored board so boards never
-  // bleed between accounts. Skipped on mount (already handled by the lazy
-  // initializer above) and safe to double-invoke under StrictMode.
-  useEffect(() => {
-    const currentId = user?.id ?? null;
-    if (currentId === loadedUserId.current) return;
-    loadedUserId.current = currentId;
-    dispatch({ type: 'LOAD', payload: user ? readBoard(user.id) : [] });
-  }, [user]);
+function BoardStore({ profileId, children }) {
+  const [tasks, dispatch] = useReducer(reducer, profileId, (id) => (id ? readBoard(id) : []));
+  const persisted = useRef(tasks);
 
+  // Only real changes are written, so loading a board never overwrites storage.
   useEffect(() => {
-    if (!user) return;
-    try {
-      window.localStorage.setItem(STORAGE_KEYS.board(user.id), JSON.stringify(tasks));
-    } catch {
-      // storage full or unavailable - fail silently, in-memory state still works
+    if (!profileId || tasks === persisted.current) return;
+    persisted.current = tasks;
+    writeStored(STORAGE_KEYS.board(profileId), tasks);
+  }, [tasks, profileId]);
+
+  // Pick up changes from other tabs; otherwise each tab would overwrite the others' tasks.
+  useEffect(() => {
+    if (!profileId) return;
+    function handleStorage(event) {
+      if (event.key !== STORAGE_KEYS.board(profileId) && event.key !== null) return;
+      const next = readBoard(profileId);
+      persisted.current = next;
+      dispatch({ type: 'LOAD', payload: next });
     }
-  }, [tasks, user]);
+    window.addEventListener('storage', handleStorage);
+    return () => window.removeEventListener('storage', handleStorage);
+  }, [profileId]);
 
   const addTask = useCallback((status, { title, description, priority, dueDate }) => {
     dispatch({

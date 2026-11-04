@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
-import { toast } from 'sonner';
-import { useAuth } from '../../context/AuthContext';
+import { useProfile } from '../../context/ProfileContext';
 import { useTheme } from '../../context/ThemeContext';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import './Header.scss';
@@ -14,7 +13,7 @@ const userIcon = (
 );
 
 export function Header() {
-  const { user, logout } = useAuth();
+  const { profile, exitProfile } = useProfile();
   const { theme, toggleTheme } = useTheme();
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
@@ -22,11 +21,10 @@ export function Header() {
 
   useOnClickOutside(menuRef, () => setMenuOpen(false));
 
-  function handleLogout() {
+  function handleSwitchProfile() {
     setMenuOpen(false);
-    logout();
-    toast.success('Logged out.');
-    navigate('/login', { replace: true });
+    exitProfile();
+    navigate('/profiles', { replace: true });
   }
 
   return (
@@ -47,34 +45,22 @@ export function Header() {
             {theme === 'dark' ? '☀️' : '🌙'}
           </button>
 
-          {user ? (
+          {profile && (
             <div className="container__avatar" ref={menuRef}>
               <button type="button" className="user-image" onClick={() => setMenuOpen((v) => !v)}>
                 {userIcon}
-                <span className="username-label">{user.username}</span>
+                <span className="username-label">{profile.username}</span>
               </button>
               {menuOpen && (
                 <div className="container__menu_avatar">
                   <ul className="profile__menu">
-                    {user.role === 'admin' && (
-                      <li className="item__profile-menu">
-                        <NavLink to="/admin" onClick={() => setMenuOpen(false)}>
-                          Admin panel
-                        </NavLink>
-                      </li>
-                    )}
-                    <li className="item__profile-menu" onClick={handleLogout}>
-                      Log out
+                    <li className="item__profile-menu" onClick={handleSwitchProfile}>
+                      Switch profile
                     </li>
                   </ul>
                 </div>
               )}
             </div>
-          ) : (
-            <nav className="auth-links">
-              <NavLink to="/login">Log in</NavLink>
-              <NavLink to="/register">Sign up</NavLink>
-            </nav>
           )}
         </div>
       </div>

@@ -1,15 +1,15 @@
-import { useAuth } from '../../context/AuthContext';
+import { useProfile } from '../../context/ProfileContext';
 import { useBoard } from '../../context/BoardContext';
 import { Title } from '../common/Title';
 import './Footer.scss';
 
 export function Footer() {
-  const { user } = useAuth();
+  const { profile } = useProfile();
 
   return (
     <footer className="footer-block">
       <div className="container-footer">
-        {user && <BoardStats />}
+        {profile && <BoardStats />}
         <div className="container-info_footer">
           <h4>Kanban board by</h4>
           <a rel="author noreferrer" target="_blank" href="https://github.com/IliaTsitovich">

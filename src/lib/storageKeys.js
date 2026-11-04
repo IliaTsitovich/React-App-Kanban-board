@@ -1,6 +1,7 @@
 export const STORAGE_KEYS = {
-  users: 'kanban:users',
+  // Key name predates profiles; kept so existing boards stay attached to their owners.
+  profiles: 'kanban:users',
   session: 'kanban:session',
   theme: 'kanban:theme',
-  board: (userId) => `kanban:board:${userId}`,
+  board: (profileId) => `kanban:board:${profileId}`,
 };

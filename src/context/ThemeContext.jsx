@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { STORAGE_KEYS } from '../lib/storageKeys';
+import { themeSchema } from '../lib/validation';
 
 const ThemeContext = createContext(null);
 
@@ -9,7 +10,11 @@ function systemPrefersDark() {
 }
 
 export function ThemeProvider({ children }) {
-  const [theme, setTheme] = useLocalStorage(STORAGE_KEYS.theme, systemPrefersDark() ? 'dark' : 'light');
+  const [theme, setTheme] = useLocalStorage(
+    STORAGE_KEYS.theme,
+    systemPrefersDark() ? 'dark' : 'light',
+    themeSchema
+  );
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
