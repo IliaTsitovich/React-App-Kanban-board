@@ -29,7 +29,10 @@ export function AddTaskForm({ status }) {
   if (!open) {
     return (
       <Button className="button_add backlog active" onClick={() => setOpen(true)}>
-        + Add card
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" aria-hidden="true">
+          <path d="M12 4v16M4 12h16" />
+        </svg>
+        Add card
       </Button>
     );
   }

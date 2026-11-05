@@ -1,7 +1,8 @@
 import { createContext, useCallback, useContext, useMemo } from 'react';
 import { useLocalStorage } from '../hooks/useLocalStorage';
 import { STORAGE_KEYS } from '../lib/storageKeys';
-import { removeStored } from '../lib/storage';
+import { removeStored, writeStored } from '../lib/storage';
+import { createSampleTasks } from '../lib/sampleTasks';
 import { profilesSchema, sessionSchema } from '../lib/validation';
 
 const ProfileContext = createContext(null);
@@ -31,6 +32,7 @@ export function ProfileProvider({ children }) {
         username: name,
         createdAt: new Date().toISOString(),
       };
+      writeStored(STORAGE_KEYS.board(newProfile.id), createSampleTasks());
       setProfiles((prev) => [...prev, newProfile]);
       setSession({ userId: newProfile.id });
       return { ok: true, profile: newProfile };

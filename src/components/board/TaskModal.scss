@@ -3,6 +3,16 @@
   flex-direction: column;
 }
 
+.task-modal-form .field-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.task-modal-form > .field-label:not(:first-child),
+.task-modal-row {
+  margin-top: 12px;
+}
+
 .task-modal-row {
   display: flex;
   gap: 16px;
@@ -12,8 +22,25 @@
   }
 }
 
+.task-modal-form .field-error {
+  margin-top: 4px;
+}
+
 .task-modal-actions {
   display: flex;
   justify-content: space-between;
-  margin-top: 8px;
+  margin-top: 16px;
+}
+
+.task-modal-discard {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 16px;
+  font-size: 14px;
+
+  span {
+    flex: 1 1 140px;
+  }
 }

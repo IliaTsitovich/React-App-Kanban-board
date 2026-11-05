@@ -27,6 +27,7 @@ which is handy for keeping separate lists. Profiles are not accounts and boards 
 - Add, edit, and delete tasks, with priority, due date, and description.
 - Search/filter tasks by title.
 - Local profiles, each with its own board. Create, switch, and delete them from the profile screen.
+- New boards start with example tasks that demonstrate the app, removable in one click.
 - Light/dark theme toggle (defaults to your OS preference).
 - Toast notifications for key actions.
 - Everything persists to `localStorage`; two tabs of the app stay in sync with each other.

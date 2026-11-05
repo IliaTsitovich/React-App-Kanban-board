@@ -1,44 +1,127 @@
 .column {
-  background: var(--color-surface-muted);
-  border-radius: 10px;
-  padding: 10px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  min-width: 0;
+  padding: 8px;
+  transition: opacity 0.18s var(--ease-out), background-color 0.18s var(--ease-out);
 }
 
-.column-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 4px 6px;
+.column_receding {
+  opacity: 0.55;
 }
 
-.title-block {
+.column_drop-target {
+  background: var(--color-surface-muted);
+}
+
+.column-title {
+  position: relative; // keeps its hidden count inside the scrolling row
   margin: 0;
-  font-size: 16px;
-  font-weight: 500;
-  color: var(--color-text);
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.2;
 }
 
-.column-count {
-  font-size: 12px;
-  color: var(--color-text-muted);
-  background: var(--color-surface);
-  border-radius: 999px;
-  padding: 2px 8px;
+// The count is drawn as a dimension: two extension ticks and a measured span.
+.dimension {
+  position: relative;
+  height: 22px;
+  color: var(--color-line);
+  transition: color 0.22s var(--ease-out);
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 4px 0;
+    border-inline: var(--line-width) solid currentColor;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 10px;
+    border-top: var(--line-width) solid currentColor;
+  }
+}
+
+.dimension-value {
+  position: absolute;
+  z-index: 1;
+  left: 50%;
+  top: 0;
+  min-width: 34px;
+  padding: 0 8px;
+  transform: translateX(-50%);
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-measure);
+  font-size: 15px;
+  font-weight: 500;
+  line-height: 22px;
+  text-align: center;
+  white-space: nowrap;
+  transition: color 0.22s var(--ease-out);
+}
+
+.dimension-old {
+  margin-right: 6px;
+}
+
+.dimension-new {
+  display: inline-block;
+}
+
+.dimension_revised .dimension-new {
+  animation: remeasure 0.28s var(--ease-out);
+}
+
+@keyframes remeasure {
+  from {
+    transform: translateY(-6px);
+    opacity: 0;
+  }
+}
+
+.column_drop-target .dimension-value {
+  background: var(--color-surface-muted);
+}
+
+.dimension_revised {
+  color: var(--color-revision);
+
+  .dimension-value {
+    color: var(--color-revision);
+  }
 }
 
 .column-body {
   display: flex;
   flex-direction: column;
   gap: 8px;
-  min-height: 32px;
+  min-height: 56px;
 }
 
 .column-empty {
+  display: grid;
+  place-items: center;
+  min-height: 56px;
+  margin: 0;
+  border: var(--line-width) dashed var(--color-line-soft);
+  border-radius: var(--radius);
   color: var(--color-text-muted);
-  font-size: 13px;
-  text-align: center;
-  margin: 8px 0;
+  font-size: 14px;
+}
+
+.add-task-form {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.add-task-actions {
+  display: flex;
+  gap: 8px;
 }

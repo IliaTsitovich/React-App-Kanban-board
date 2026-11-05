@@ -1,33 +1,43 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   DndContext,
   DragOverlay,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   closestCorners,
   useSensor,
   useSensors,
 } from '@dnd-kit/core';
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable';
+import { toast } from 'sonner';
 import { useBoard } from '../../context/BoardContext';
 import { COLUMNS } from '../../lib/tasks';
+import Button from '../common/Button';
 import { Column } from './Column';
 import { TaskCard } from './TaskCard';
 import { TaskModal } from './TaskModal';
 import './Board.scss';
 
 export function Board() {
-  const { tasks, columns, moveTask } = useBoard();
+  const { tasks, columns, moveTask, clearSamples } = useBoard();
+  const mainRef = useRef(null);
   const [query, setQuery] = useState('');
   const [openTaskId, setOpenTaskId] = useState(null);
   const [activeTask, setActiveTask] = useState(null);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
   const dragDisabled = Boolean(query.trim());
+  const hasSamples = tasks.some((task) => task.sample);
+
+  useEffect(() => {
+    mainRef.current?.focus({ preventScroll: true });
+  }, []);
 
   const filteredColumns = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -39,6 +49,11 @@ export function Board() {
       ])
     );
   }, [columns, query]);
+
+  function handleClearSamples() {
+    clearSamples();
+    toast.success('Examples cleared.');
+  }
 
   function handleDragStart(event) {
     setActiveTask(tasks.find((t) => t.id === event.active.id) ?? null);
@@ -61,7 +76,8 @@ export function Board() {
   }
 
   return (
-    <main className="board">
+    <main className="board" ref={mainRef} tabIndex={-1}>
+      <h1 className="visually-hidden">Board</h1>
       <div className="board-toolbar">
         <input
           className="board-search"
@@ -72,6 +88,11 @@ export function Board() {
           aria-label="Search tasks"
         />
         {dragDisabled && <span className="board-search-hint">Clear search to drag cards</span>}
+        {hasSamples && (
+          <Button className="button_secondary board-clear-samples" onClick={handleClearSamples}>
+            Clear examples
+          </Button>
+        )}
       </div>
 
       <DndContext

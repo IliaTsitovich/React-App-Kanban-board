@@ -8,23 +8,37 @@
 
 .profiles-card {
   background: var(--color-surface);
-  border-radius: 10px;
-  box-shadow: var(--shadow-card);
-  padding: 32px;
+  border: var(--line-width) solid var(--color-line);
+  border-radius: var(--radius);
+  padding: 28px;
   width: 100%;
   max-width: 380px;
 
   h1 {
-    font-size: 22px;
-    margin: 0 0 20px;
+    font-size: 26px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0 0 8px;
   }
+}
+
+.profiles-intro {
+  margin: 0;
+  color: var(--color-text-muted);
+  font-size: 15px;
+  line-height: 1.4;
+}
+
+.profiles-intro + .profile-form,
+.profiles-card h1 + .profiles-list {
+  margin-top: 20px;
 }
 
 .profiles-list {
   list-style: none;
   margin: 0 0 20px;
   padding: 0 0 20px;
-  border-bottom: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-line-soft);
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -40,16 +54,22 @@
   min-width: 0;
   overflow-wrap: anywhere;
   text-align: left;
-  padding: 8px 12px;
-  font-size: 14px;
-  font-weight: 500;
+  padding: 7px 12px;
+  font-size: 16px;
+  font-weight: 600;
   color: var(--color-text);
   background: var(--color-surface-muted);
-  border: none;
+  border: var(--line-width) solid transparent;
   border-radius: var(--radius);
 
   &:hover {
-    color: var(--color-primary);
+    border-color: var(--color-line);
+  }
+}
+
+@media (pointer: coarse) {
+  .profiles-open {
+    min-height: 44px;
   }
 }
 

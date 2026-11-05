@@ -10,8 +10,8 @@ export const profileSchema = z.object({
 });
 
 export const taskSchema = z.object({
-  title: z.string().trim().min(1, 'Title is required').max(120, 'Title is too long'),
-  description: z.string().max(2000, 'Description is too long').optional().default(''),
+  title: z.string().trim().min(1, 'Title is required').max(120, 'Title must be 120 characters or fewer'),
+  description: z.string().max(2000, 'Description must be 2000 characters or fewer').optional().default(''),
   priority: z.enum(['low', 'medium', 'high']).default('medium'),
   dueDate: z.string().optional().nullable(),
 });
@@ -40,5 +40,6 @@ export const boardSchema = z.array(
     dueDate: z.string().nullable().catch(null),
     createdAt: z.string().optional(),
     updatedAt: z.string().optional(),
+    sample: z.boolean().optional(),
   })
 );
