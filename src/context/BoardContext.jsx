@@ -1,4 +1,5 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useReducer, useRef } from 'react';
+import { toast } from 'sonner';
 import { useProfile } from './ProfileContext';
 import { STORAGE_KEYS } from '../lib/storageKeys';
 import { readStored, writeStored } from '../lib/storage';
@@ -6,6 +7,8 @@ import { boardSchema } from '../lib/validation';
 import { createTask, nextOrderInColumn, renumberColumn, tasksByColumn } from '../lib/tasks';
 
 const BoardContext = createContext(null);
+
+export const TASK_DELETED_TOAST = 'task-deleted';
 
 function reducer(state, action) {
   switch (action.type) {
@@ -31,6 +34,17 @@ function reducer(state, action) {
         .sort((a, b) => a.order - b.order)
         .map((t) => t.id);
       return renumberColumn(remaining, removed.status, orderedIds);
+    }
+
+    case 'RESTORE_TASK': {
+      const task = action.payload;
+      if (state.some((t) => t.id === task.id)) return state;
+      const orderedIds = state
+        .filter((t) => t.status === task.status)
+        .sort((a, b) => a.order - b.order)
+        .map((t) => t.id);
+      orderedIds.splice(task.order, 0, task.id);
+      return renumberColumn([...state, task], task.status, orderedIds);
     }
 
     case 'CLEAR_SAMPLES':
@@ -95,6 +109,9 @@ function BoardStore({ profileId, children }) {
     writeStored(STORAGE_KEYS.board(profileId), tasks);
   }, [tasks, profileId]);
 
+  // An Undo offered for this board can't reach it once another profile is open.
+  useEffect(() => () => toast.dismiss(TASK_DELETED_TOAST), []);
+
   // Pick up changes from other tabs; otherwise each tab would overwrite the others' tasks.
   useEffect(() => {
     if (!profileId) return;
@@ -134,6 +151,10 @@ function BoardStore({ profileId, children }) {
     dispatch({ type: 'MOVE_TASK', payload: { id, toStatus, toIndex } });
   }, []);
 
+  const restoreTask = useCallback((task) => {
+    dispatch({ type: 'RESTORE_TASK', payload: task });
+  }, []);
+
   const clearSamples = useCallback(() => {
     dispatch({ type: 'CLEAR_SAMPLES' });
   }, []);
@@ -141,8 +162,8 @@ function BoardStore({ profileId, children }) {
   const columns = useMemo(() => tasksByColumn(tasks), [tasks]);
 
   const value = useMemo(
-    () => ({ tasks, columns, addTask, updateTask, deleteTask, moveTask, clearSamples }),
-    [tasks, columns, addTask, updateTask, deleteTask, moveTask, clearSamples]
+    () => ({ tasks, columns, addTask, updateTask, deleteTask, restoreTask, moveTask, clearSamples }),
+    [tasks, columns, addTask, updateTask, deleteTask, restoreTask, moveTask, clearSamples]
   );
 
   return <BoardContext.Provider value={value}>{children}</BoardContext.Provider>;

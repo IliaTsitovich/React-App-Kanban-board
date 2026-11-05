@@ -8,14 +8,18 @@ export function Modal({ open, onClose, title, children }) {
     if (!dialog) return;
     if (open && !dialog.open) dialog.showModal();
     if (!open && dialog.open) dialog.close();
-  }, [open]);
+  });
 
   return (
     <dialog
       ref={dialogRef}
       className="app-modal"
       onClose={onClose}
-      onCancel={onClose}
+      onCancel={(e) => {
+        // The parent decides whether Escape closes; it may need to confirm first.
+        e.preventDefault();
+        onClose();
+      }}
       onClick={(e) => {
         if (e.target === dialogRef.current) onClose();
       }}

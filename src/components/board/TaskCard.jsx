@@ -33,7 +33,7 @@ export function TaskCard({ task, onOpen, disabled, overlay }) {
       <div className="item-task-meta">
         <span className={`priority-badge priority-${task.priority}`}>{PRIORITY_LABEL[task.priority]}</span>
         {task.dueDate && (
-          <span className="due-date">{new Date(task.dueDate).toLocaleDateString()}</span>
+          <span className="due-date">{new Date(`${task.dueDate}T00:00:00`).toLocaleDateString()}</span>
         )}
       </div>
     </div>
