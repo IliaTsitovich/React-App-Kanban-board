@@ -43,7 +43,7 @@ export function Header() {
     <header className="header">
       <div className="container__header">
         <NavLink className="main-title_Link" to="/">
-          <span className="main-title-lead">Awesome </span>Kanban Board
+          Awesome Kanban Board
         </NavLink>
 
         <div className="header-actions">

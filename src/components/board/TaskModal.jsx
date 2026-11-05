@@ -110,7 +110,7 @@ export function TaskModal({ taskId, onClose }) {
             <select id="task-priority" className="field-input" {...register('priority')}>
               {PRIORITIES.map((p) => (
                 <option key={p} value={p}>
-                  {p}
+                  {p[0].toUpperCase() + p.slice(1)}
                 </option>
               ))}
             </select>

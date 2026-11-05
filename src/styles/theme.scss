@@ -1,5 +1,6 @@
 // The same sheet in positive (whiteprint) and negative (cyanotype).
 @mixin negative {
+  color-scheme: dark;
   --color-bg: #0e1433;
   --color-surface: #151c45;
   --color-surface-muted: #1e2758;
@@ -17,6 +18,7 @@
 }
 
 :root {
+  color-scheme: light;
   --color-bg: #e9edf5;
   --color-surface: #fbfcfe;
   --color-surface-muted: #dde3f0;
@@ -39,7 +41,7 @@
   --color-on-shell-muted: #c9d0ee;
 
   --line-width: 1.5px;
-  --radius: 2px;
+  --radius: 0;
   --font-sans: 'Overpass', system-ui, sans-serif;
   --font-measure: 'Overpass Mono', ui-monospace, monospace;
   --ease-out: cubic-bezier(0.16, 1, 0.3, 1);

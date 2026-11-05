@@ -2,7 +2,7 @@
 .title-block {
   margin-top: auto;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto;
+  grid-template-columns: minmax(0, 1fr) repeat(3, auto);
   background-color: var(--color-shell);
   color: var(--color-on-shell);
   font-size: 14px;
@@ -30,11 +30,8 @@
   display: block;
   margin-bottom: 4px;
   color: var(--color-on-shell-muted);
-  font-family: var(--font-measure);
-  font-size: 12px;
-  font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
+  font-size: 14px;
+  font-weight: 600;
 }
 
 .title-value {
@@ -48,7 +45,13 @@
 
 .title-status {
   display: flex;
-  gap: 16px;
+  flex-wrap: wrap;
+  gap: 0 16px;
+}
+
+.title-measure {
+  font-family: var(--font-measure);
+  font-weight: 500;
 }
 
 .title-status-count {
@@ -63,8 +66,25 @@
 }
 
 .title-notes summary {
-  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
   width: fit-content;
+  list-style: none;
+  cursor: pointer;
+
+  &::-webkit-details-marker {
+    display: none;
+  }
+
+  svg {
+    flex-shrink: 0;
+    transition: transform 0.18s var(--ease-out);
+  }
+}
+
+.title-notes[open] summary svg {
+  transform: rotate(90deg);
 }
 
 .title-notes .title-label {
@@ -80,7 +100,7 @@
 
 @media (max-width: 767px) {
   .title-block {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
   }
 
   .title-notes {
@@ -98,7 +118,25 @@
     border-left: none;
   }
 
+  .title-cell,
+  .title-cell:first-child,
+  .title-cell:last-child {
+    min-width: 0;
+  }
+
   .title-value {
     font-size: 16px;
+  }
+}
+
+@media (max-width: 399px) {
+  .title-cell,
+  .title-cell:first-child,
+  .title-cell:last-child {
+    padding-inline: 12px;
+  }
+
+  .title-status {
+    gap: 0 10px;
   }
 }

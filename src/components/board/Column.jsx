@@ -22,7 +22,7 @@ export function Column({ column, tasks, onOpenTask, dragDisabled }) {
 
   const columnClasses = ['column'];
   if (isDropTarget) columnClasses.push('column_drop-target');
-  if (toStatus && !isDropTarget) columnClasses.push('column_receding');
+  if (toStatus && !isDropTarget && column.id !== fromStatus) columnClasses.push('column_receding');
 
   return (
     <section className={columnClasses.join(' ')}>
@@ -31,7 +31,12 @@ export function Column({ column, tasks, onOpenTask, dragDisabled }) {
         <span className="visually-hidden">: {tasks.length} tasks</span>
       </h2>
       <div className={`dimension${countChange ? ' dimension_revised' : ''}`} aria-hidden="true">
-        <span className="dimension-value">{tasks.length + countChange}</span>
+        <span className="dimension-value">
+          {countChange !== 0 && <s className="dimension-old">{tasks.length}</s>}
+          <span key={tasks.length + countChange} className="dimension-new">
+            {tasks.length + countChange}
+          </span>
+        </span>
       </div>
 
       <SortableContext items={tasks.map((t) => t.id)} strategy={verticalListSortingStrategy}>

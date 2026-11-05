@@ -1,7 +1,7 @@
 import { Navigate, Routes, Route } from 'react-router-dom';
 import { Toaster } from 'sonner';
 import { ProfileProvider } from './context/ProfileContext';
-import { ThemeProvider } from './context/ThemeContext';
+import { ThemeProvider, useTheme } from './context/ThemeContext';
 import { BoardProvider } from './context/BoardContext';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import { Header } from './components/layout/Header';
@@ -10,6 +10,11 @@ import { StorageNotice } from './components/layout/StorageNotice';
 import { BoardPage } from './pages/BoardPage';
 import { ProfilesPage } from './pages/ProfilesPage';
 import { NotFoundPage } from './pages/NotFoundPage';
+
+function ThemedToaster() {
+  const { theme } = useTheme();
+  return <Toaster theme={theme} position="top-right" offset={{ top: 68, right: 16 }} />;
+}
 
 function App() {
   return (
@@ -33,7 +38,7 @@ function App() {
           </Routes>
           <Footer />
         </BoardProvider>
-        <Toaster position="top-right" offset={{ top: 68, right: 16 }} />
+        <ThemedToaster />
         <StorageNotice />
       </ThemeProvider>
     </ProfileProvider>

@@ -42,7 +42,9 @@ export function TaskCard({ task, onOpen, disabled, overlay }) {
         {task.dueDate && (
           <span className={isOverdue ? 'due-date due-date_overdue' : 'due-date'}>
             {isOverdue && 'Overdue '}
-            {new Date(`${task.dueDate}T00:00:00`).toLocaleDateString()}
+            <span className="due-date-value">
+              {new Date(`${task.dueDate}T00:00:00`).toLocaleDateString()}
+            </span>
           </span>
         )}
         {isFinished && <span className="item-task-done">Done</span>}

@@ -67,6 +67,12 @@
   }
 }
 
+@media (pointer: coarse) {
+  .profiles-open {
+    min-height: 44px;
+  }
+}
+
 .profile-form .submit_button {
   width: 100%;
 }

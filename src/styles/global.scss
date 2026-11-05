@@ -19,7 +19,7 @@ body {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
-  caret-color: var(--color-revision);
+  caret-color: var(--color-line);
 }
 
 ::selection {
@@ -44,7 +44,7 @@ button {
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-revision);
+  outline: 2px solid var(--color-line);
   outline-offset: 2px;
 }
 
@@ -86,6 +86,10 @@ button {
 }
 
 .button_add {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   border-style: dashed;
 
   &:hover {
@@ -99,12 +103,12 @@ button {
 }
 
 .button_danger {
-  background: var(--color-danger);
   border-color: var(--color-danger);
-  color: var(--color-on-danger);
+  color: var(--color-danger);
 
   &:hover {
-    background: var(--color-danger-hover);
+    background: var(--color-danger);
+    color: var(--color-on-danger);
   }
 }
 
@@ -192,14 +196,13 @@ button:disabled {
 // Shared dialog/modal
 
 .app-modal {
-  border: var(--line-width) solid var(--color-line);
+  border: 3px solid var(--color-line);
   border-radius: var(--radius);
   padding: 0;
   max-width: 560px;
   width: calc(100vw - 32px);
   background: var(--color-surface);
   color: var(--color-text);
-  box-shadow: 0 16px 40px rgba(16, 21, 54, 0.3);
 }
 
 .app-modal::backdrop {
@@ -252,11 +255,28 @@ button:disabled {
 
 // Toasts
 
-[data-sonner-toaster] {
+// Doubled selectors outrank sonner's own theme rules, which load after this file.
+:root [data-sonner-toaster][data-sonner-theme] {
   --normal-bg: var(--color-surface);
   --normal-text: var(--color-text);
   --normal-border: var(--color-line);
   --border-radius: var(--radius);
+  font-family: var(--font-sans);
+}
+
+:root [data-sonner-toaster] [data-sonner-toast][data-styled='true'] {
+  box-shadow: none;
+  font-size: 15px;
+}
+
+:root [data-sonner-toaster] [data-sonner-toast] [data-button][data-action] {
+  height: auto;
+  min-height: 32px;
+  padding: 4px 10px;
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 600;
 }
 
 // Touch targets

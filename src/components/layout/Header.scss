@@ -82,9 +82,8 @@
   min-width: 170px;
   background-color: var(--color-surface);
   color: var(--color-text);
-  border: var(--line-width) solid var(--color-line);
+  border: 3px solid var(--color-line);
   border-radius: var(--radius);
-  box-shadow: 0 10px 24px rgba(16, 21, 54, 0.25);
 }
 
 .profile__menu {
@@ -110,7 +109,7 @@
   }
 
   &:focus-visible {
-    outline-color: var(--color-revision);
+    outline-color: var(--color-line);
     outline-offset: -2px;
   }
 }
@@ -121,17 +120,13 @@
   }
 
   .main-title_Link {
-    font-size: 16px;
+    font-size: 15px;
+    line-height: 1.1;
+    white-space: normal;
   }
 
   .username-label {
     max-width: 96px;
-  }
-}
-
-@media (max-width: 419px) {
-  .main-title-lead {
-    display: none;
   }
 }
 

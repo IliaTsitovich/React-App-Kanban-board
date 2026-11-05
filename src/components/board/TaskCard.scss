@@ -10,7 +10,8 @@
 }
 
 .item-task-overlay {
-  box-shadow: 0 12px 24px rgba(16, 21, 54, 0.3);
+  border-width: 3px;
+  padding: 8.5px 10.5px;
   cursor: grabbing;
 }
 
@@ -40,14 +41,14 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 4px 12px;
-  font-family: var(--font-measure);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 14px;
   color: var(--color-text-muted);
 }
 
-.priority-badge {
-  text-transform: uppercase;
+.due-date-value {
+  font-family: var(--font-measure);
+  font-size: 13px;
+  font-weight: 500;
 }
 
 .priority-badge.priority-medium {
@@ -56,6 +57,7 @@
 
 .priority-badge.priority-high {
   color: var(--color-revision);
+  font-weight: 600;
 }
 
 .due-date_overdue {
@@ -67,7 +69,7 @@
   padding: 0 6px;
   border: var(--line-width) solid var(--color-revision);
   color: var(--color-revision);
-  text-transform: uppercase;
+  font-weight: 600;
 }
 
 // Touch drags start here, so a swipe on the card itself still scrolls the page.
