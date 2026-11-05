@@ -5,10 +5,22 @@ import { useTheme } from '../../context/ThemeContext';
 import { useOnClickOutside } from '../../hooks/useOnClickOutside';
 import './Header.scss';
 
-const userIcon = (
-  <svg className="image__Avatar" width="32" height="32" viewBox="0 0 40 40" fill="white" xmlns="http://www.w3.org/2000/svg">
-    <path d="M20 39.2C30.6039 39.2 39.2 30.6039 39.2 20C39.2 9.39612 30.6039 0.799988 20 0.799988C9.39612 0.799988 0.799988 9.39612 0.799988 20C0.799988 30.6039 9.39612 39.2 20 39.2Z" stroke="white" strokeWidth="2" strokeMiterlimit="10" strokeLinecap="round" />
-    <path d="M23.9464 28.4224C23.8296 27.1328 23.8744 26.2328 23.8744 25.0544C24.4584 24.748 25.5048 22.7944 25.6816 21.144C26.1408 21.1064 26.8648 20.6584 27.0768 18.8896C27.1912 17.94 26.7368 17.4056 26.46 17.2376C27.2072 14.9904 28.7592 8.03841 23.5896 7.32001C23.0576 6.38561 21.6952 5.91281 19.9248 5.91281C12.8416 6.04321 11.9872 11.2616 13.54 17.2376C13.264 17.4056 12.8096 17.94 12.9232 18.8896C13.136 20.6584 13.8592 21.1064 14.3184 21.144C14.4944 22.7936 15.5824 24.748 16.168 25.0544C16.168 26.2328 16.212 27.1328 16.0952 28.4224C15.0864 31.1344 9.90561 31.3464 6.91681 33.9616C10.0416 37.108 15.1056 39.3584 20.4496 39.3584C25.7936 39.3584 32.0752 35.1392 33.1208 33.988C30.1504 31.3488 24.9576 31.144 23.9464 28.4224Z" fill="black" />
+const sunIcon = (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" aria-hidden="true">
+    <circle cx="12" cy="12" r="4" />
+    <path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9 7 7M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1" />
+  </svg>
+);
+
+const moonIcon = (
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="M20 14.5A8.5 8.5 0 1 1 9.5 4a7 7 0 0 0 10.5 10.5Z" />
+  </svg>
+);
+
+const chevronIcon = (
+  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    <path d="m5 9 7 7 7-7" />
   </svg>
 );
 
@@ -31,7 +43,7 @@ export function Header() {
     <header className="header">
       <div className="container__header">
         <NavLink className="main-title_Link" to="/">
-          <p>Awesome Kanban Board</p>
+          <span className="main-title-lead">Awesome </span>Kanban Board
         </NavLink>
 
         <div className="header-actions">
@@ -42,20 +54,33 @@ export function Header() {
             aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
             title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
-            {theme === 'dark' ? '☀️' : '🌙'}
+            {theme === 'dark' ? sunIcon : moonIcon}
           </button>
 
           {profile && (
-            <div className="container__avatar" ref={menuRef}>
-              <button type="button" className="user-image" onClick={() => setMenuOpen((v) => !v)}>
-                {userIcon}
+            <div
+              className="container__avatar"
+              ref={menuRef}
+              onKeyDown={(e) => {
+                if (e.key === 'Escape') setMenuOpen(false);
+              }}
+            >
+              <button
+                type="button"
+                className="user-image"
+                aria-expanded={menuOpen}
+                onClick={() => setMenuOpen((v) => !v)}
+              >
                 <span className="username-label">{profile.username}</span>
+                {chevronIcon}
               </button>
               {menuOpen && (
                 <div className="container__menu_avatar">
                   <ul className="profile__menu">
-                    <li className="item__profile-menu" onClick={handleSwitchProfile}>
-                      Switch profile
+                    <li>
+                      <button type="button" className="item__profile-menu" onClick={handleSwitchProfile}>
+                        Switch profile
+                      </button>
                     </li>
                   </ul>
                 </div>

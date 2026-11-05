@@ -1,50 +1,104 @@
-.footer-block {
+// The drawing's title block: notes, status, and who signed it.
+.title-block {
   margin-top: auto;
-  background-color: var(--color-primary);
-  color: #ffffff;
-  font-size: 15px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  background-color: var(--color-shell);
+  color: var(--color-on-shell);
+  font-size: 14px;
 }
 
-.container-footer {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 19px;
-  gap: 10px;
-}
+.title-cell {
+  padding: 12px 24px;
+  border-left: 1px solid var(--color-shell-line);
 
-.count_container {
-  display: flex;
-  gap: 24px;
-}
-
-.stat {
-  margin: 0;
-}
-
-.stat-label {
-  opacity: 0.85;
-  margin-right: 4px;
-}
-
-.container-info_footer {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-
-  h4 {
-    font-weight: 300;
-    margin: 0;
+  &:first-child {
+    padding-left: 32px;
+    border-left: none;
   }
 
-  a {
-    text-decoration: none;
-    color: white;
+  &:last-child {
+    padding-right: 32px;
+  }
 
-    &:hover {
-      text-decoration: underline;
-    }
+  :focus-visible {
+    outline-color: var(--color-on-shell);
+  }
+}
+
+.title-label {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--color-on-shell-muted);
+  font-family: var(--font-measure);
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.title-value {
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.title-value a {
+  color: inherit;
+}
+
+.title-status {
+  display: flex;
+  gap: 16px;
+}
+
+.title-status-count {
+  font-family: var(--font-measure);
+  font-weight: 500;
+}
+
+.title-status-name {
+  margin-left: 6px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.title-notes summary {
+  cursor: pointer;
+  width: fit-content;
+}
+
+.title-notes .title-label {
+  display: inline;
+}
+
+.title-notes ol {
+  margin: 4px 0 0;
+  padding-left: 18px;
+  max-width: 75ch;
+  line-height: 1.4;
+}
+
+@media (max-width: 767px) {
+  .title-block {
+    grid-template-columns: 1fr auto;
+  }
+
+  .title-notes {
+    grid-column: 1 / -1;
+    border-bottom: 1px solid var(--color-shell-line);
+  }
+
+  .title-cell,
+  .title-cell:first-child,
+  .title-cell:last-child {
+    padding: 10px 16px;
+  }
+
+  .title-cell:nth-child(2) {
+    border-left: none;
+  }
+
+  .title-value {
+    font-size: 16px;
   }
 }

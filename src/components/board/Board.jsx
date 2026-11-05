@@ -3,7 +3,8 @@ import {
   DndContext,
   DragOverlay,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   closestCorners,
   useSensor,
   useSensors,
@@ -26,7 +27,8 @@ export function Board() {
   const [activeTask, setActiveTask] = useState(null);
 
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(TouchSensor),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates })
   );
 
@@ -75,6 +77,7 @@ export function Board() {
 
   return (
     <main className="board" ref={mainRef} tabIndex={-1}>
+      <h1 className="visually-hidden">Board</h1>
       <div className="board-toolbar">
         <input
           className="board-search"

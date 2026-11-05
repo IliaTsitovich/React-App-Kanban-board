@@ -9,14 +9,29 @@ export function Column({ column, tasks, onOpenTask, dragDisabled }) {
     id: column.id,
     data: { type: 'column', status: column.id },
   });
-  const { over } = useDndContext();
-  const isDropTarget = over?.data.current?.status === column.id;
+
+  const { active, over } = useDndContext();
+  const fromStatus = active?.data.current?.status;
+  const toStatus = active ? over?.data.current?.status : undefined;
+  const isMoving = Boolean(toStatus) && toStatus !== fromStatus;
+  const isDropTarget = toStatus === column.id;
+
+  let countChange = 0;
+  if (isMoving && toStatus === column.id) countChange = 1;
+  if (isMoving && fromStatus === column.id) countChange = -1;
+
+  const columnClasses = ['column'];
+  if (isDropTarget) columnClasses.push('column_drop-target');
+  if (toStatus && !isDropTarget) columnClasses.push('column_receding');
 
   return (
-    <div className={`column${isDropTarget ? ' column_drop-target' : ''}`}>
-      <div className="column-header">
-        <p className="title-block">{column.title}</p>
-        <span className="column-count">{tasks.length}</span>
+    <section className={columnClasses.join(' ')}>
+      <h2 className="column-title">
+        {column.title}
+        <span className="visually-hidden">: {tasks.length} tasks</span>
+      </h2>
+      <div className={`dimension${countChange ? ' dimension_revised' : ''}`} aria-hidden="true">
+        <span className="dimension-value">{tasks.length + countChange}</span>
       </div>
 
       <SortableContext items={tasks.map((t) => t.id)} strategy={verticalListSortingStrategy}>
@@ -36,6 +51,6 @@ export function Column({ column, tasks, onOpenTask, dragDisabled }) {
       </SortableContext>
 
       {column.id === 'backlog' && <AddTaskForm status={column.id} />}
-    </div>
+    </section>
   );
 }

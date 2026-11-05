@@ -1,18 +1,10 @@
-import { createTask } from './tasks';
-
-function isoDateInDays(days) {
-  const date = new Date();
-  date.setDate(date.getDate() + days);
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${date.getFullYear()}-${month}-${day}`;
-}
+import { createTask, isoDateInDays } from './tasks';
 
 export function createSampleTasks() {
   const samples = [
     {
       title: 'Drag this card to Ready',
-      description: 'Grab it anywhere and drop it on another column.',
+      description: 'Drag it onto another column and watch the counts change.',
       status: 'backlog',
       order: 0,
       priority: 'high',

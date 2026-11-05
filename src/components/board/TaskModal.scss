@@ -3,6 +3,11 @@
   flex-direction: column;
 }
 
+.task-modal-form .field-label {
+  display: block;
+  margin-bottom: 4px;
+}
+
 .task-modal-form > .field-label:not(:first-child),
 .task-modal-row {
   margin-top: 12px;

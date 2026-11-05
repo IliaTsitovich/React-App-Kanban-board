@@ -5,7 +5,6 @@ import { ThemeProvider } from './context/ThemeContext';
 import { BoardProvider } from './context/BoardContext';
 import { ProtectedRoute } from './routes/ProtectedRoute';
 import { Header } from './components/layout/Header';
-import { DemoNotice } from './components/layout/DemoNotice';
 import { Footer } from './components/layout/Footer';
 import { StorageNotice } from './components/layout/StorageNotice';
 import { BoardPage } from './pages/BoardPage';
@@ -18,7 +17,6 @@ function App() {
       <ThemeProvider>
         <BoardProvider>
           <Header />
-          <DemoNotice />
           <Routes>
             <Route path="/profiles" element={<ProfilesPage />} />
             <Route path="/login" element={<Navigate to="/profiles" replace />} />
@@ -35,7 +33,7 @@ function App() {
           </Routes>
           <Footer />
         </BoardProvider>
-        <Toaster position="bottom-right" richColors />
+        <Toaster position="top-right" offset={{ top: 68, right: 16 }} />
         <StorageNotice />
       </ThemeProvider>
     </ProfileProvider>

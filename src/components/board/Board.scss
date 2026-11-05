@@ -1,6 +1,7 @@
 .board {
   flex: 1;
-  padding: 24px 18px 48px;
+  min-width: 0;
+  padding: 20px 32px 32px;
 
   &:focus {
     outline: none;
@@ -16,35 +17,45 @@
 }
 
 .board-search {
-  background: var(--color-surface);
-  max-width: 360px;
+  max-width: 340px;
 }
 
 .board-search-hint {
-  font-size: 12px;
-  color: white;
-  white-space: nowrap;
+  font-size: 14px;
+  color: var(--color-text-muted);
 }
 
 .board-clear-samples {
-  background: var(--color-surface);
   white-space: nowrap;
-
-  &:hover {
-    background: var(--color-surface-muted);
-  }
 }
 
+// One row in every width: progress always reads left to right.
 .board-columns {
   display: grid;
-  grid-template-columns: repeat(4, minmax(260px, 300px));
-  gap: 20px;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(220px, 1fr);
+  gap: 8px;
   align-items: start;
   overflow-x: auto;
+  scrollbar-width: thin;
+  margin: 0 -8px;
 }
 
-@media screen and (max-width: 1200px) {
+@media (max-width: 767px) {
+  .board {
+    padding: 16px 16px 24px;
+  }
+
   .board-columns {
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-auto-columns: 82vw;
+    gap: 0;
+    scroll-snap-type: x proximity;
+    scroll-padding-left: 8px;
+    margin: 0 -16px;
+    padding: 0 8px;
+  }
+
+  .column {
+    scroll-snap-align: start;
   }
 }
